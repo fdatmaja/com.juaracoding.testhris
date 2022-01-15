@@ -8,3 +8,6 @@ empdisplayname=EX - AHMAD ZAKI BIN TAMIMI
 leadusername=EXD8190125
 leadpassword=admin12345
 leaddisplayname=EX - CECEP R
+notifasuransi=Data sudah berhasil di kirim dan menunggu persetujuan HRD
+notifglass=Data sudah berhasil di kirim dan menunggu persetujuan Leader
+notifklaim=Message : Data Berhasil Di Approve

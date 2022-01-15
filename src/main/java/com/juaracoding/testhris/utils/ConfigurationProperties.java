@@ -32,12 +32,20 @@ public class ConfigurationProperties {
 	@Value("${leadusername}")
 	private String leadUserName;
 	
-	
 	@Value("${leadpassword}")
 	private String leadPassword;
 	
 	@Value("${leaddisplayname}")
 	private String leadDisplayName;
+	
+	@Value("${notifasuransi}")
+	private String notifasuransi;
+	
+	@Value("${notifglass}")
+	private String notifglass;
+	
+	@Value("${notifklaim}")
+	private String notifklaim;
 
 	public String getEmpDisplayName() {
 		return empDisplayName;
@@ -78,4 +86,18 @@ public class ConfigurationProperties {
 	public String getLeadDisplayName() {
 		return leadDisplayName;
 	}
+
+	public String getNotifasuransi() {
+		return notifasuransi;
+	}
+
+	public String getNotifglass() {
+		return notifglass;
+	}
+
+	public String getNotifklaim() {
+		return notifklaim;
+	}
+	
+	
 }

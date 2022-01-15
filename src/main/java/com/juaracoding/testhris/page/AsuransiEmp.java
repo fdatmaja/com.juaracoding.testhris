@@ -66,6 +66,9 @@ public class AsuransiEmp {
 	@FindBy(css = "#content > div:nth-child(8) > div:nth-child(2) > div > input")
 	private WebElement btnKirim;
 	
+	@FindBy(css = "#content > div:nth-child(9) > div > ul > li > div.timeline-body > div.timeline-content > p")
+	private WebElement txthasil;
+	
 	public void sideBarAsuransi() {		
 		sideBarReimbursement.click();
 	}
@@ -133,6 +136,11 @@ public class AsuransiEmp {
 		
 		btnKirim.click();
 	}
+
+	public String getTxthasil() {
+		return txthasil.getText();
+	}
+	
 	
 	
 

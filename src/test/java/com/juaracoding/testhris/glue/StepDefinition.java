@@ -117,7 +117,7 @@ public class StepDefinition {
 	
 	@Then("^Data Pengajuan Klaim Asuransi Berhasil diajukan")
 	public void data_Klaim_Pengajuan_Asuransi_Berhasil_diajukan() {
-		//assertEquals(configurationProperties.getDisplayName(), login.getTxtDisplayName());
+		assertEquals(configurationProperties.getNotifasuransi(), asuransiEmp.getTxthasil());
 		extentTest.log(LogStatus.PASS, "Data Pengajuan Klaim Asuransi Berhasil diajukan");
 	}
 	
@@ -148,7 +148,7 @@ public class StepDefinition {
 	
 	@Then("^Data Pengajuan Klaim glass Berhasil diajukan")
 	public void data_Klaim_Pengajuan_Glass_Berhasil_diajukan() {
-		//assertEquals(configurationProperties.getDisplayName(), login.getTxtDisplayName());
+		assertEquals(configurationProperties.getNotifglass(), glassEmp.getTxthasil());
 		extentTest.log(LogStatus.PASS, "Data Pengajuan Klaim glass Berhasil diajukan");
 	}
 	
@@ -181,7 +181,7 @@ public class StepDefinition {
 	
 	@Then("^Data Approve Glass Berhasil diajukan")
 	public void data_Approve_Glass_Berhasil_diajukan() {
-		//assertEquals(configurationProperties.getDisplayName(), login.getTxtDisplayName());
+		assertEquals(configurationProperties.getNotifasuransi(), apprGlass.getTxthasil());
 		extentTest.log(LogStatus.PASS, "Data Approve Glass Berhasil diajukan");
 	}
 	
@@ -202,12 +202,13 @@ public class StepDefinition {
 	@Then("^User go to dashboard")
 	public void user_go_to_dashboard() throws IOException {
 		assertEquals(configurationProperties.getDisplayName(), login.getTxtDisplayName());
-		String screenShotPath = Utils.capture(driver, "screenShotName");
-		extentTest.log(LogStatus.PASS, "User go to dashboard" + extentTest.addScreenCapture(screenShotPath));
+		extentTest.log(LogStatus.PASS, "User go to dashboard");
+//		String screenShotPath = Utils.capture(driver, "screenShotName");
+//		extentTest.log(LogStatus.PASS, "User go to dashboard" + extentTest.addScreenCapture(screenShotPath));
 	}
 	
 	
-	//Klaim Asuransi
+	//Klaim Asuransi HRD
 	@When("^Drop down list yang berisi Klaim Asuransi dan Klaim Kacamata")
 	public void drop_down_list_yang_berisi_Klaim_Asuransi_dan_Klaim_Kacamata() {
 		reimbursement.sideBarAsuransi();
@@ -223,24 +224,23 @@ public class StepDefinition {
 	@When("^Klik Edit Klaim Asuransi")
 	public void klik_Edit_Klaim_Asuransi() {
 		reimbursement.gotoDetailKlaim();
-		//reimbursement.ajukanKlaimAsuransi();
+		reimbursement.ajukanKlaimAsuransi();
 		extentTest.log(LogStatus.PASS, "Klik Edit Klaim Asuransi");
 	}
 	
 	@When("^Approve Klaim Asuransi")
 	public void approve_Klaim_Asuransi() {
-		//reimbursement.approveKlaimAsuransi();
+		reimbursement.approveKlaimAsuransi();
 		extentTest.log(LogStatus.PASS, "Approve Klaim Asuransi");
 	}
 	
 	@Then("^Data Klaim Asuransi Berhasil diajukan")
 	public void data_Klaim_Asuransi_Berhasil_diajukan() {
-		//assertEquals(configurationProperties.getDisplayName(), login.getTxtDisplayName());
+		assertEquals(configurationProperties.getNotifklaim(), reimbursement.getTxthasil());
 		extentTest.log(LogStatus.PASS, "Data Klaim Asuransi Berhasil diajukan");
 	}
 	
-	
-	//Klaim Glass
+	//Klaim Glass HRD
 	@When("^Menampilkan halaman Klaim Glass")
 	public void menampilkan_halaman_Klaim_Glass() {
 		reimbursement.goToKlaimGlass();
@@ -250,7 +250,7 @@ public class StepDefinition {
 	@When("^Klik Edit Klaim Glass")
 	public void klik_Edit_Klaim_Glass() {
 		reimbursement.gotoDetailKlaim();
-		//reimbursement.ajukanKlaimGlass();
+		reimbursement.ajukanKlaimGlass();
 		extentTest.log(LogStatus.PASS, "Klik Edit Klaim Glass");
 	}
 	
@@ -262,7 +262,7 @@ public class StepDefinition {
 	
 	@Then("^Data Klaim Glass Berhasil diajukan")
 	public void data_Klaim_Glass_Berhasil_diajukan() {
-		//assertEquals(configurationProperties.getDisplayName(), login.getTxtDisplayName());
+		assertEquals(configurationProperties.getNotifklaim(), reimbursement.getTxthasil());
 		extentTest.log(LogStatus.PASS, "Data Klaim Glass Berhasil diajukan");
 	}
 	

@@ -5,7 +5,6 @@ import java.util.List;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -52,6 +51,8 @@ public class ReimbursementHRD {
 	@FindBy(css = "#modal_approve > div > div > form > div.modal-footer > button.btn.btn-primary")
 	private WebElement btnSubmit;
 	
+	@FindBy(css = "#content > div.alert.alert-success.alert-dismissible.fade.show")
+	private WebElement txthasil;
 	
 	public void sideBarAsuransi() {		
 		sideBarReimbursement.click();
@@ -96,7 +97,7 @@ public class ReimbursementHRD {
         
 		txtJumlahClaim.sendKeys(txtJumlahClaimBefore.getAttribute("value"));
 		txtReason.sendKeys("Test Alasan");
-		//btnSubmit.click();
+		btnSubmit.click();
 	}
 	
 	public void ajukanKlaimGlass() {
@@ -125,11 +126,13 @@ public class ReimbursementHRD {
 		}
 		txtJumlahClaim.sendKeys(txtJumlahClaimBefore.getAttribute("value"));
 		
-		//Actions actions = new Actions(driver);
-    	//actions.moveToElement(txtReason).perform();
-		//txtReason.click();
 		txtReasonGlass.get(1).sendKeys("Test Alasan");
-		//btnSubmit.click();
+		btnSubmit.click();
+	}
+	
+	public String getTxthasil() {
+		String[] kata = txthasil.getText().split("Approve");
+		return kata[0] + "Approve";
 	}
 	
 }

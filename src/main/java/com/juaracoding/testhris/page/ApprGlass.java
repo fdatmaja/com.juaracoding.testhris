@@ -1,8 +1,5 @@
 package com.juaracoding.testhris.page;
 
-import java.util.List;
-
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +26,9 @@ public class ApprGlass {
 	@FindBy(css = "#content > div:nth-child(8) > div:nth-child(2) > div > div > input")
 	private WebElement btnApprove;
 	
+	@FindBy(css = "#content > div:nth-child(10) > div > ul > li:nth-child(3) > div.timeline-body > div.timeline-content > p")
+	private WebElement txthasil;
+	
 	public void sideBarAsuransi() {		
 		sideBarReimbursement.click();
 	}
@@ -48,5 +48,9 @@ public class ApprGlass {
 	
 	public void approveKlaim() {		
 		btnApprove.click();
+	}
+	
+	public String getTxthasil() {
+		return txthasil.getText();
 	}
 }

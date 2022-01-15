@@ -66,6 +66,9 @@ public class GlassEmp {
 	@FindBy(css = "#content > div:nth-child(9) > div:nth-child(2) > div > div > input")
 	private WebElement btnKirim;
 	
+	@FindBy(css = "#content > div:nth-child(10) > div > ul > li > div.timeline-body > div.timeline-content > p")
+	private WebElement txthasil;
+	
 	public void sideBarAsuransi() {		
 		sideBarReimbursement.click();
 	}
@@ -132,8 +135,16 @@ public class GlassEmp {
 		}
 		
 		btnKirim.click();
+		
+		try {
+			Thread.sleep(3000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
-	
+	public String getTxthasil() {
+		return txthasil.getText();
+	}
 
 }
