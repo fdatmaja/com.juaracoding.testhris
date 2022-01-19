@@ -23,6 +23,21 @@ public class AsuransiEmp {
 	
 	@FindBy(css = "#sidebar > div > div:nth-child(1) > ul:nth-child(2) > li.has-sub.expand > ul > li")
 	private List<WebElement> SubMenuReimbursement;
+	
+	@FindBy(id = "tgl")
+	private WebElement txtTgl;
+	
+	@FindBy(id = "tgl2")
+	private WebElement txtTgl2;
+	
+	@FindBy(id = "btn-filter")
+	private WebElement btnFilter;
+	
+	@FindBy(css = "#table_filter > label > input")
+	private WebElement txtSearch;
+	
+	@FindBy(id = "btnSearch")
+	private WebElement btnSaerch;
 
 	@FindBy(css = "#content > div.col-md-6 > a")
 	private WebElement btnAdd;
@@ -36,8 +51,8 @@ public class AsuransiEmp {
 	@FindBy(id = "rupiah")
 	private WebElement txtNilai;
 	
-	@FindBy(id = "tgl")
-	private WebElement txtTgl;
+//	@FindBy(id = "tgl")
+//	private WebElement txtTgl;
 	
 	@FindBy(id = "reason")
 	private List<WebElement> txtReasonGlass;
@@ -141,6 +156,18 @@ public class AsuransiEmp {
 		return txthasil.getText();
 	}
 	
+	
+	public void inputSearch() {		
+		txtSearch.sendKeys("Test");
+		btnSaerch.click();
+	}
+	
+	public void inputFilter() {		
+		JavascriptExecutor JS = (JavascriptExecutor)driver;
+		JS.executeScript("document.getElementById('tgl').value='2021-01-19'");
+		JS.executeScript("document.getElementById('tgl2').value='2021-01-19'");
+		btnFilter.click();
+	}
 	
 	
 

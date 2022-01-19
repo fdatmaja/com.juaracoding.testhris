@@ -1,5 +1,6 @@
 package com.juaracoding.testhris.page;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +30,21 @@ public class ApprGlass {
 	@FindBy(css = "#content > div:nth-child(10) > div > ul > li:nth-child(3) > div.timeline-body > div.timeline-content > p")
 	private WebElement txthasil;
 	
+	@FindBy(id = "tgl")
+	private WebElement txtTgl;
+	
+	@FindBy(id = "tgl2")
+	private WebElement txtTgl2;
+	
+	@FindBy(id = "btn-filter")
+	private WebElement btnFilter;
+	
+	@FindBy(css = "#table_filter > label > input")
+	private WebElement txtSearch;
+	
+	@FindBy(id = "btnSearch")
+	private WebElement btnSaerch;
+	
 	public void sideBarAsuransi() {		
 		sideBarReimbursement.click();
 	}
@@ -52,5 +68,17 @@ public class ApprGlass {
 	
 	public String getTxthasil() {
 		return txthasil.getText();
+	}
+	
+	public void inputFilter() {		
+		JavascriptExecutor JS = (JavascriptExecutor)driver;
+		JS.executeScript("document.getElementById('tgl').value='2022-01-19'");
+		JS.executeScript("document.getElementById('tgl2').value='2022-01-19'");
+		btnFilter.click();
+	}
+	
+	public void inputSearch() {		
+		txtSearch.sendKeys("ex");
+		btnSaerch.click();
 	}
 }

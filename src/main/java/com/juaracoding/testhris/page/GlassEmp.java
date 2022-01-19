@@ -5,8 +5,11 @@ import java.util.List;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.juaracoding.testhris.driver.DriverSingleton;
 
@@ -23,7 +26,37 @@ public class GlassEmp {
 	
 	@FindBy(css = "#sidebar > div > div:nth-child(1) > ul:nth-child(2) > li.has-sub.expand > ul > li")
 	private List<WebElement> SubMenuReimbursement;
-
+	
+	@FindBy(id = "tgl")
+	private WebElement txtTgl;
+	
+	@FindBy(id = "tgl2")
+	private WebElement txtTgl2;
+	
+	@FindBy(id = "btn-filter")
+	private WebElement btnFilter;
+	
+	@FindBy(css = "#table_filter > label > input")
+	private WebElement txtSearch;
+	
+	@FindBy(id = "btnSearch")
+	private WebElement btnSaerch;
+	
+	@FindBy(css = "#content > div.row > div > div > div.panel-heading.ui-sortable-handle > div > a.btn.btn-xs.btn-icon.btn-circle.btn-default")
+	private WebElement btnCompress;
+	
+	@FindBy(css = "#content > div.row > div > div > div.panel-heading.ui-sortable-handle > div > a.btn.btn-xs.btn-icon.btn-circle.btn-success")
+	private WebElement btnReload;
+	
+	@FindBy(css = "#content > div.row > div > div > div.panel-heading.ui-sortable-handle > div > a.btn.btn-xs.btn-icon.btn-circle.btn-warning")
+	private WebElement btnCollapse;
+	
+	@FindBy(css = "#table_previous > a")
+	private WebElement btnPrev;
+	
+	@FindBy(css = "#table_next > a")
+	private WebElement btnNext;
+	
 	@FindBy(css = "#content > div.col-md-6 > a")
 	private WebElement btnAdd;
 	
@@ -36,8 +69,8 @@ public class GlassEmp {
 	@FindBy(id = "rupiah")
 	private WebElement txtNilai;
 	
-	@FindBy(id = "tgl")
-	private WebElement txtTgl;
+//	@FindBy(id = "tgl")
+//	private WebElement txtTgl;
 	
 	@FindBy(id = "reason")
 	private List<WebElement> txtReasonGlass;
@@ -78,7 +111,15 @@ public class GlassEmp {
 	}
 	
 	public void goToAdd() {		
-		btnAdd.click();;
+//		WebDriverWait wait2 = new WebDriverWait(driver, 5000);
+//		wait2.until(ExpectedConditions.elementToBeClickable(btnAdd));
+//		
+//		JavascriptExecutor jse2 = (JavascriptExecutor)driver;
+//		jse2.executeScript("arguments[0].scrollIntoView()", btnAdd); 
+//		btnAdd.click();;
+		
+		Actions actions = new Actions(driver);
+		actions.moveToElement(btnAdd).click().build().perform();
 	}
 	
 	public void inputDataKlaim() {		
@@ -138,6 +179,47 @@ public class GlassEmp {
 		
 		try {
 			Thread.sleep(3000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void inputSearch() {		
+		txtSearch.sendKeys("Test");
+		btnSaerch.click();
+	}
+	
+	public void kilkNextPrev() {		
+		btnNext.click();
+		btnPrev.click();
+	}
+	
+	public void inputFilter() {		
+		JavascriptExecutor JS = (JavascriptExecutor)driver;
+		JS.executeScript("document.getElementById('tgl').value='2021-01-19'");
+		JS.executeScript("document.getElementById('tgl2').value='2021-01-19'");
+		btnFilter.click();
+	}
+	
+	public void inputView() { 
+		Actions actions = new Actions(driver);
+		actions.moveToElement(btnCompress).click().build().perform();
+		//btnCompress.click();
+		
+		btnReload.click();
+		btnCollapse.click();
+		
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		btnCollapse.click();
+		
+		btnCompress.click();
+		
+		try {
+			Thread.sleep(2000);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

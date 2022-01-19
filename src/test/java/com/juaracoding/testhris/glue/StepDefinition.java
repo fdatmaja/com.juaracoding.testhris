@@ -14,12 +14,16 @@ import com.juaracoding.testhris.config.AutomationFrameworkConfiguration;
 import com.juaracoding.testhris.driver.DriverSingleton;
 import com.juaracoding.testhris.page.ApprGlass;
 import com.juaracoding.testhris.page.AsuransiEmp;
+import com.juaracoding.testhris.page.EntertainmentEmp;
 import com.juaracoding.testhris.page.GlassEmp;
 import com.juaracoding.testhris.page.LoginEMP;
 import com.juaracoding.testhris.page.LoginHRD;
+import com.juaracoding.testhris.page.PromotionEmp;
+import com.juaracoding.testhris.page.PromotionHistEmp;
 import com.juaracoding.testhris.page.ReimbursementHRD;
 import com.juaracoding.testhris.utils.ConfigurationProperties;
 import com.juaracoding.testhris.utils.Constants;
+import com.juaracoding.testhris.utils.GetScreenShot;
 import com.juaracoding.testhris.utils.TestCases;
 import com.juaracoding.testhris.utils.Utils;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -43,6 +47,9 @@ public class StepDefinition {
 	private ApprGlass apprGlass;
 	private LoginEMP loginEmp;
 	private ReimbursementHRD reimbursement;
+	private PromotionEmp promotionEmp;
+	private PromotionHistEmp promotionHistEmp;
+	private EntertainmentEmp entertainmentEmp;
 	ExtentTest extentTest;
 	TestCases[] tests = TestCases.values();
 	static ExtentReports report = new ExtentReports("src/main/resources/HrisTestReport.html");
@@ -59,7 +66,11 @@ public class StepDefinition {
 		apprGlass = new ApprGlass();
 		loginEmp = new LoginEMP();
 		reimbursement = new ReimbursementHRD();
+		promotionEmp = new PromotionEmp();
+		promotionHistEmp = new PromotionHistEmp();
+		entertainmentEmp = new EntertainmentEmp();
 		extentTest = report.startTest(tests[Utils.testCount].getTestName());
+		
 	}
 	
 	//login emp
@@ -79,14 +90,14 @@ public class StepDefinition {
 	@Then("^User go to dashboard employee")
 	public void user_go_to_dashboard_employee() throws IOException {
 		assertEquals(configurationProperties.getEmpDisplayName(), loginEmp.getTxtDisplayName());
-		extentTest.log(LogStatus.PASS, "User go to dashboard employee");
-		//String screenShotPath = Utils.capture(driver, "screenShotNameEmp");
-		//extentTest.log(LogStatus.PASS, "User go to dashboard employee" + extentTest.addScreenCapture(screenShotPath));
+		//extentTest.log(LogStatus.PASS, "User go to dashboard employee");
+//		String screenShotPath = GetScreenShot.capture(driver, "screenShotNameEmp");
+//		extentTest.log(LogStatus.PASS, "User go to dashboard employee" + extentTest.addScreenCapture(screenShotPath));
 	}
 	
 	//klaim asuransi emp
 	@When("^Drop down list yang berisi Klaim Asuransi dan Klaim Kacamata Employee")
-	public void drop_down_list_yang_berisi_Klaim_Asuransi_dan_Klaim_Kacamata_employee() {
+	public void drop_down_list_yang_berisi_Klaim_Asuransi_dan_Klaim_Kacamata_employee(){
 		asuransiEmp.sideBarAsuransi();
 		extentTest.log(LogStatus.PASS, "Drop down list yang berisi Klaim Asuransi dan Klaim Kacamata Employee");
 	}
@@ -95,6 +106,13 @@ public class StepDefinition {
 	public void menampilkan_halaman_Klaim_Asuransi_Employee() {
 		asuransiEmp.goToKlaimAsuransi();
 		extentTest.log(LogStatus.PASS, "Menampilkan halaman Klaim Asuransi Employee");
+	}
+	
+	@When("^Cek Filter dan Search Asuransi")
+	public void cek_Filter_dan_Search_Asuransi() {
+		asuransiEmp.inputFilter();
+		asuransiEmp.inputSearch();
+		extentTest.log(LogStatus.PASS, "Cek Filter dan Search Asuransi");
 	}
 	
 	@When("^Klik Add Claim Asuransi")
@@ -128,6 +146,21 @@ public class StepDefinition {
 		extentTest.log(LogStatus.PASS, "Menampilkan halaman Klaim Glass Employee");
 	}
 	
+	@When("^Cek Next dan Previous Glass")
+	public void cek_Next_dan_Previous_Glass() throws IOException {
+		glassEmp.kilkNextPrev();
+		driver = DriverSingleton.getDriver();
+		String screenShotPath = GetScreenShot.capture(driver, "NextAndPreviousGlass");
+		extentTest.log(LogStatus.INFO, "Cek Next dan Previous Glass" + extentTest.addScreenCapture(screenShotPath));
+	}
+	
+	@When("^Cek Filter dan Search Glass")
+	public void cek_Filter_dan_Search_GLass() {
+		//glassEmp.inputView();
+		glassEmp.inputSearch();
+		extentTest.log(LogStatus.PASS, "Cek Filter dan Search Glass");
+	}
+	
 	@When("^Klik Add Claim Glass")
 	public void klik_Add_Claim_Glass() {
 		glassEmp.goToAdd();
@@ -155,6 +188,11 @@ public class StepDefinition {
 	//approve glass
 	@When("^Ganti User lalu input username password employee and click login")
 	public void ganti_user_lalu_user_input_username_password_employee_and_click_login() {
+		try {
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		loginEmp.logOut();
 		loginEmp.goToLoggedIn(configurationProperties.getLeadUserName(), configurationProperties.getLeadPassword());
 		extentTest.log(LogStatus.PASS, "Ganti User lalu User input username password employee and click login");
@@ -165,6 +203,14 @@ public class StepDefinition {
 		apprGlass.sideBarAsuransi();
 		apprGlass.goToApproveGlass();
 		extentTest.log(LogStatus.PASS, "Menampilkan halaman Approve Glass");
+	}
+	
+	
+	@When("^Cek Filter dan Search Approve Glass")
+	public void cek_Filter_dan_Search_Approve_Glass() {
+		apprGlass.inputFilter();
+		apprGlass.inputSearch();
+		extentTest.log(LogStatus.PASS, "Cek Filter dan Search Approve Glass");
 	}
 	
 	@When("^Klik Edit Approve Glass")
@@ -183,6 +229,93 @@ public class StepDefinition {
 	public void data_Approve_Glass_Berhasil_diajukan() {
 		assertEquals(configurationProperties.getNotifasuransi(), apprGlass.getTxthasil());
 		extentTest.log(LogStatus.PASS, "Data Approve Glass Berhasil diajukan");
+	}
+	
+	//Entertainment
+	@When("^Menampilkan halaman Entertainment Employee")
+	public void menampilkan_halaman_Entertainment_Employee() {
+		entertainmentEmp.goToKlaimAsuransi();
+		extentTest.log(LogStatus.PASS, "Menampilkan halaman Entertainment Employee");
+	}
+	
+	@When("^Klik Add Entertainment")
+	public void klik_Add_Entertainment() {
+		entertainmentEmp.goToAdd();
+		extentTest.log(LogStatus.PASS, "Klik Add Entertainment");
+	}
+	
+	// promotion
+	@When("^Drop down list yang berisi Promotion dan Promotion History")
+	public void drop_down_list_yang_berisi_Promotion_dan_Promotion_History() {
+		promotionEmp.sideBar();
+		extentTest.log(LogStatus.PASS, "Drop down list yang berisi Promotion dan Promotion History");
+	}
+	
+	@When("^Menampilkan halaman Promotion")
+	public void menampilkan_halaman_Promotion() {
+		promotionEmp.goToPromotion();
+		extentTest.log(LogStatus.PASS, "Menampilkan halaman Promotion");
+	}
+	
+	@When("^Cek Next dan Previous")
+	public void cek_Next_dan_Previous() throws IOException {
+		promotionEmp.kilkNextPrev();
+		driver = DriverSingleton.getDriver();
+		String screenShotPath = GetScreenShot.capture(driver, "NextAndPrevious");
+		extentTest.log(LogStatus.INFO, "Cek Next dan Previous" + extentTest.addScreenCapture(screenShotPath));
+	}
+	
+	@When("^Cek Filter dan Search")
+	public void cek_Filter_dan_Search() {
+		promotionEmp.inputView();
+		promotionEmp.inputSearch();
+		extentTest.log(LogStatus.PASS, "Cek Filter dan Search");
+	}
+	
+	@When("^Klik Add Promotion")
+	public void klik_Add_Promotion() {
+		promotionEmp.goToAdd();
+		extentTest.log(LogStatus.PASS, "Klik Add Promotion");
+	}
+	
+	@When("^Cek tombol fungsi view tujuan")
+	public void cek_tombol_fungsi_view_tujuan() {
+		promotionEmp.inputViewTujuan();
+		extentTest.log(LogStatus.PASS, "Cek tombol fungsi view tujuan");
+	}
+	
+	@When("^Cek tombol fungsi view identitas")
+	public void cek_tombol_fungsi_view_identitas() {
+		promotionEmp.inputViewIdentitas();
+		extentTest.log(LogStatus.PASS, "Cek tombol fungsi view identitas");
+	}
+	
+	@When("^Input nik")
+	public void input_nik() {
+		promotionEmp.selectNik();
+		extentTest.log(LogStatus.PASS, "Input nik");
+	}
+	
+	//promotion hist
+	@When("^Menampilkan halaman Promotion History")
+	public void menampilkan_halaman_Promotion_History() {
+		promotionHistEmp.goToPromotionHist();
+		extentTest.log(LogStatus.PASS, "Menampilkan halaman Promotion History");
+	}
+	
+	@When("^Cek Next dan Previous History")
+	public void cek_Next_dan_Previous_History() throws IOException {
+		promotionHistEmp.kilkNextPrev();
+		driver = DriverSingleton.getDriver();
+		String screenShotPath = GetScreenShot.capture(driver, "NextAndPreviousHistory");
+		extentTest.log(LogStatus.INFO, "Cek Next dan Previous History" + extentTest.addScreenCapture(screenShotPath));
+	}
+	
+	@When("^Cek Filter dan Search History")
+	public void cek_Filter_dan_Search_History() {
+		promotionHistEmp.inputFilter();
+		promotionHistEmp.inputSearch();
+		extentTest.log(LogStatus.PASS, "Cek Filter dan Search History");
 	}
 	
 	// login HRD
